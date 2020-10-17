@@ -62,21 +62,29 @@ int main() {
   listOfWords.push_back("Cobol");
   listOfWords.push_back("Kotlin");
   listOfWords.push_back("Swift");
-
-  string word = pickRandomWord(listOfWords);
-  string userAnswer;
-  userAnswer = string(word.size(), '*');
-  /*cout << "Enter a letter in word ";
-  cout << userAnswer;
-  cout << " > "; */
-  while (CheckAsteriksPresence(userAnswer) == false) {
-    cout << "Enter a letter in word ";
-    cout << userAnswer;
-    cout << " > ";
-    string choice;
-    cin >> choice;
-    string partial = CheckGuess(word, userAnswer, choice);
-    userAnswer = partial;
-    cout << endl;
+  int flag = 0;
+  while (flag == 0) {
+    int numberGuesses = 0;
+    string word = pickRandomWord(listOfWords);
+    string userAnswer;
+    userAnswer = string(word.size(), '*');
+    while (CheckAsteriksPresence(userAnswer) == false) {
+      cout << "Enter a letter in word ";
+      cout << userAnswer;
+      cout << " > ";
+      string choice;
+      cin >> choice;
+      string partial = CheckGuess(word, userAnswer, choice);
+      userAnswer = partial;
+      cout << endl;
+      ++numberGuesses;
+    }
+    cout << "The word is " << word << ". You have used " << numberGuesses << " tries" << endl;
+    cout << "Do you want to guess another word. Enter Y or N: ";
+    string next;
+    cin >> next;
+    if (next == "N") {
+      flag = 1;
+    }
   }
 }
